@@ -38,8 +38,7 @@ let result = '';
 
 // Explain the game to the user
 alert(`In this game, you will battle the world's dumbest
-robot in a game of Rock, Paper, Scissors. First to 3 wins.
-If you lose, you should be embarrassed.`);
+robot in a game of Rock, Paper, Scissors. First to 3 wins.`);
 
 /* Once one "team" reaches 3 wins, the game ends 
 This function takes the inputs, and generates the outputs*/
@@ -103,6 +102,6 @@ function playRound(userInput, computerInput) {
 // Let the user know the overall result before ending the game
 if (userWins > computerWins) {
     alert('Congrats! You\'re smarter than a computer!');
-} else (
+} else {
     alert('Yikes... the computer beat you. That must hurt.')
-)
+}
