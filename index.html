@@ -4,9 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="./script2.js" defer></script>
+    <link rel="stylesheet" href="./styles.css"></link>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Rock, Paper, Scissors</title>
 </head>
 <body>
-    <script src="./script.js"></script>
+<div id="container">
+    <h1 class="title">Rock, Paper, Scissors Game: First to 5 Wins</h1>
+    <div id="userUI" class="containerUI">
+        <p>Make your choice:</p>
+        <span class="selection">
+            <span><button id="rock"><img src="https://images.thdstatic.com/productImages/94af8836-0338-4802-914e-04cc71e562ad/svn/backyard-x-scapes-fake-rocks-hdd-rof-rocsb-64_1000.jpg"></button>
+                <p>Rock</p>
+            </span>
+            <span><button id="paper"><img src="https://rukminim1.flixcart.com/image/416/416/jolseq80/paper-label/t/4/v/1-1-a4-normal-2sent-original-imafbfyk7zbsupbg.jpeg?q=70"></button>
+                <p>Paper</p>
+            </span>
+            <span><button id="scissors"><img src="https://www.ikea.com/us/en/images/products/sy-scissors__0112301_pe263788_s5.jpg?f=s"></button>
+                <p>Scissors</p>
+            </span>
+        </span>
+    </div>
+
+    <p class="info">VS</p>
+
+    <div class="containerUI">
+        <p>Robot's Choice:</p>
+        <span class="selection">
+            <span><button id="robot-rock"><img src="https://149360821.v2.pressablecdn.com/wp-content/uploads/2017/12/Robot-Rock.jpg"></button>
+                <p>Robot Rock</p>
+            </span>
+            <span><button id="robot-paper"><img src="https://www.allkidsnetwork.com/crafts/robots/images/paper-robot.jpg"></button>
+                <p>Robot Paper</p>
+            </span>
+            <span><button id="robot-scissors"><img src="https://sc04.alicdn.com/kf/H3c89f8cb16134e3ea2932a084cdfbdf4t.jpg"></button>
+                <p>Robot Scissors</p>
+            </span>
+        </span>
+    </div>
+
+    <div id="bottom">
+        <h4 id="winner"></h4>
+        <h2 id="score" class="info">SCORE: 0 - 0</h2>
+        <button id="play">PLAY AGAIN</button>
+    </div>
+</div>
 </body>
 </html>
