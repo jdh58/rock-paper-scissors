@@ -5,11 +5,12 @@
 // Create a userWins variable with initial value 0 
 // Create a computerWins variable with initial value 0
 // Create a result variable that holds a string
-// Explain the game to the user
-// Start a while loop with coniditions (userWins > 3 && computerWins > 3)
-// Prompt user to choose between rock, paper, or scissors
-// Record user input into userInput variable
-// Convert to lowercase so it's case insensitive
+// Create a variable that stores a nodelist with the 3 buttons
+// Start a while loop with coniditions (userWins > 5 && computerWins > 5)
+// Add eventListener on 3 buttons with forEach
+// If clicked rock, record 'rock'
+// If clicked paper, record 'paper'
+// If clicked scissors, record 'scissors'
 // Randomly generate a number between 0 and 2
 // Use a switch statement to convert that random number into a
    string of value 'rock', 'paper', or 'scissors'
@@ -25,7 +26,7 @@
    the score and that they won, and interate the userWins variable
 // If the result = 'lose', output a string letting the user know
    the score and that they lost, and iterate the computerWins variable.
-// Output a string letting the user know who won the best of 5
+// Output a string letting the user know who won the best of 9
 // End the program
 
 */
@@ -36,14 +37,11 @@ let userWins = 0;
 let computerWins = 0;
 let result = '';
 
-// Explain the game to the user
-alert(`In this game, you will battle the world's dumbest
-robot in a game of Rock, Paper, Scissors. First to 3 wins.`);
-
 /* Once one "team" reaches 3 wins, the game ends 
 This function takes the inputs, and generates the outputs*/
 while (userWins < 3 && computerWins < 3) {
-    userInput = prompt("Make your choice: Rock, Paper, or Scissors").toLowerCase();
+    
+
     computerInput = Math.floor(Math.random() * 3);
     // We use Math.floor() to eliminate decimal point values
 
@@ -63,17 +61,15 @@ while (userWins < 3 && computerWins < 3) {
 
     if (result == 'win') {
         userWins++;
-        alert(`You chose ${userInput} and the computer chose...`);
-        alert(`${computerInput}! You win!
-        \tSCORE: You ${userWins} - Computer ${computerWins}`)
     } else if (result == 'lose') {
         computerWins++;
-        alert(`You chose ${userInput} and the computer chose...`);
-        alert(`${computerInput}! You lose.
-    SCORE: You ${userWins} - Computer ${computerWins}`);
-    } else {
-        alert('You tied! A real meeting of the minds...');
+    } else if (result == 'tied') {
+        
     }
+
+    winner.textContent = `You ${result} Round ${round}`;
+    score.style.color = 'green';
+    score.textContent = `SCORE: ${userWins} - ${computerWins}`;
     /*If there's an invalid input, we just call it a tie
     for simplicity's sake*/
     // No need to initialize the inputs again, that will be
@@ -83,7 +79,7 @@ while (userWins < 3 && computerWins < 3) {
 // Run this function to return the result of a round given 2 inputs
 function playRound(userInput, computerInput) {
     if (userInput === computerInput) {
-        return 'tie';
+        return 'tied';
     } else if (userInput == 'rock' && computerInput == 'paper') {
         return 'lose';
     } else if (userInput == 'rock' && computerInput == 'scissors') {
