@@ -1,0 +1,97 @@
+html {
+    font-family: 'Inter', sans-serif;
+}
+
+#container {
+    width: 75%;
+    margin: auto;
+}
+
+.title {
+    text-align: center;
+}
+
+.containerUI {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+
+.containerUI > p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.selection {
+    display: flex;
+    margin: auto;
+    gap: 25px;
+}
+
+.selection button {
+    width: 150px;
+    height: 150px;
+    flex: 0 1 250px;
+}
+
+button img {
+    width: 100%;
+}
+
+.selection p {
+    margin-top: 5px;
+}
+
+.info {
+    text-align: center;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 40px;
+    margin: 20px auto;
+}
+
+h2.info {
+    font-style: normal;
+    font-size: 48px
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.bold-border {
+    border-width: 4px;
+}
+
+#bottom {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    align-items: center;
+    width: 750px;
+}
+
+#winner {
+    display: none;
+    font-size: 30px;
+    font-style: italic;
+    text-align: center;
+    width: 180.5px;
+}
+
+#play {
+    box-sizing: border-box;
+    display: none;
+    border-width: 0;
+    font-weight: 700;
+    font-size: 22px;
+    padding: 16px 24px;
+    background: rgb(91, 245, 104);
+    border-radius: 6px;
+    transition: background-color, .3s; 
+}
+
+#play:hover {
+    background-color:rgb(73, 201, 84);
+}
