@@ -1,5 +1,4 @@
 /*
-
 // Create a userInput variable that holds a string
 // Create a computerInput variable that holds a string
 // Create a userWins variable with initial value 0 
@@ -28,58 +27,140 @@
    the score and that they lost, and iterate the computerWins variable.
 // Output a string letting the user know who won the best of 9
 // End the program
-
 */
 
-let userInput = '';
-let computerInput = '';
+// Initializing userInput and computerInput to rock so it won't
+// cause errors when calling deHighlightChoice in initial round
+let userInput = 'rock';
+let computerInput = 'rock';
 let userWins = 0;
 let computerWins = 0;
 let result = '';
+const WINS_NEEDED = 5; // Change this to change the desired # of wins to win
 
-/* Once one "team" reaches 3 wins, the game ends 
-This function takes the inputs, and generates the outputs*/
-while (userWins < 3 && computerWins < 3) {
-    
+// Store the elements we want to change in variables
+const score = document.querySelector('#score');
+const buttons = document.querySelectorAll('#userUI button');
+const play = document.querySelector('#play');
+const winner = document.querySelector('#winner');
 
+// If the user hits play again, play another round
+play.addEventListener('click', playRound);
+// Start the page by auto-playing the initial round
+playRound();
+
+function playRound() {
+    // De-Highlight the previous round and remove displays
+    winner.style.display = 'none';
+    play.style.display = 'none';
+    deHighlightChoice(document.getElementById(userInput));
+    deHighlightChoice(document.getElementById(`robot-${computerInput}`));
+
+    /* Randomly generate the Robot's choice.
+    We use Math.floor() to eliminate decimal point values */
     computerInput = Math.floor(Math.random() * 3);
-    // We use Math.floor() to eliminate decimal point values
 
     /* Convert the random number into a readable string */
     switch(computerInput) {
         case 0: 
-            computerInput = 'rock'
+            computerInput = 'rock';
             break;
         case 1: 
-            computerInput = 'paper'
+            computerInput = 'paper';
             break;
         case 2: 
-            computerInput = 'scissors'
+            computerInput = 'scissors';
     }
 
-    result = playRound(userInput, computerInput);
+    // Wait for the user to make a choice of rock, paper, or scissors
+    buttons.forEach(element => 
+        element.addEventListener('click', onUserSelection));
+}
 
+// Runs when user makes their selection
+function onUserSelection(e) {
+    // Makes the buttons unclickable
+    buttons.forEach(element => element.removeEventListener('click', onUserSelection));
+    
+    /* Stores userInput based off the ID of the clicked button.
+    If-else structure bubbles up 1 if user clicked on nested image
+    Then, highlights the selection so user knows it was recorded */
+    if(e.composedPath()[0].nodeName === 'IMG') {
+        userInput = e.composedPath()[1].id;
+        highlightChoice(e.composedPath()[1]);
+    } else {
+        userInput = e.composedPath()[0].id;
+        highlightChoice(e.composedPath()[0]);
+    }
+
+    // Stores element of button of robot's selection
+    const robo = document.getElementById(`robot-${computerInput}`);
+    // Changes text contents from 'Robot's Choice:' to 'Calculating...'
+    // so the user isn't confused by the delay.
+    robo.parentElement.parentElement
+    .previousElementSibling.textContent = 'Calculating...';
+
+    // Play a round with these inputs and store it as result
+    result = getResult(userInput, computerInput);
+
+    // Iterate the right player's wins
     if (result == 'win') {
         userWins++;
+        winner.textContent = 'You Won!';
+        winner.style.color = 'green';
     } else if (result == 'lose') {
         computerWins++;
-    } else if (result == 'tied') {
-        
+        winner.textContent = 'You Lost.';
+        winner.style.color = 'red';
+    } else if (result == 'tie') {
+        winner.textContent = 'You Tied.'
+        winner.style.color = 'orange';
     }
 
-    winner.textContent = `You ${result} Round ${round}`;
-    score.style.color = 'green';
-    score.textContent = `SCORE: ${userWins} - ${computerWins}`;
-    /*If there's an invalid input, we just call it a tie
-    for simplicity's sake*/
-    // No need to initialize the inputs again, that will be
-    // done automatically when the program loops.
+    /* Adds delay time to make it seem like it's thinking.
+       Reveal the robot's choice once the user has made theirs. Also
+       display the 'PLAY AGAIN' and 'You Win/Lose/Tie' text.
+       If someone has reached the WINS_NEEDED, don't show the buttons
+       and change the title text to display if user won or lost */
+    setTimeout(function(){
+        // Highlight the robot's choice
+        highlightChoice(robo);
+        // Change text back from 'Calculating...' to 'Robot's Choice'
+        robo.parentElement.parentElement.previousElementSibling
+        .textContent = 'Robot\'s Choice:';
+        // Update scoreboard
+        score.textContent=`SCORE: ${userWins} - ${computerWins}`;
+        // Display winner and play button (display: none by default)
+        winner.style.display = 'block';
+        play.style.display = 'block';
+
+        // If somone won, don't show the play again button or win/lose text
+        if (userWins >= WINS_NEEDED || computerWins >= WINS_NEEDED) {
+            winner.style.display = 'none';
+            play.style.display = 'none';
+        }
+        if (userWins >= WINS_NEEDED) {
+            // Update title text to say you won
+            document.getElementById('container').firstElementChild
+            .textContent = 'CONGRATS! You Win!!!';
+            // Makes title text green
+            document.getElementById('container').firstElementChild
+            .style.color = 'green';
+        } else if (computerWins >= WINS_NEEDED) {
+            // Update title text to say you lost
+            document.getElementById('container').firstElementChild
+            .textContent = 'Sorry. You Lose...';
+            // Makes title text red
+            document.getElementById('container').firstElementChild
+            .style.color = 'red';
+        }
+    }, (Math.random() * (3000-1500) + 1500));
 }
 
 // Run this function to return the result of a round given 2 inputs
-function playRound(userInput, computerInput) {
+function getResult(userInput, computerInput) {
     if (userInput === computerInput) {
-        return 'tied';
+        return 'tie';
     } else if (userInput == 'rock' && computerInput == 'paper') {
         return 'lose';
     } else if (userInput == 'rock' && computerInput == 'scissors') {
@@ -95,9 +176,16 @@ function playRound(userInput, computerInput) {
     }
 }
 
-// Let the user know the overall result before ending the game
-if (userWins > computerWins) {
-    alert('Congrats! You\'re smarter than a computer!');
-} else {
-    alert('Yikes... the computer beat you. That must hurt.')
+// This function will highlight any element passed in
+function highlightChoice(element) {
+    element.nextElementSibling.style.fontWeight = '600';
+    element.style.borderWidth = '3px';
+    element.style.borderStyle = 'solid';
+}
+
+// This function will undo highlightedChoice
+function deHighlightChoice(element) {
+    element.nextElementSibling.style.fontWeight = '400';
+    element.style.borderWidth = '1px';
+    element.style.borderStyle = 'outset';
 }
